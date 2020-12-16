@@ -5,12 +5,17 @@ const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 
+const engineerChoice = mQuestion[4].choices[0];
+const internChoice = mQuestion[4].choices[1];
+const noChoice = mQuestion[4].choice[2];
+
+
 const OUTPUT_DIR = path.resolve(__dirname, "output");
 const outputPath = path.join(OUTPUT_DIR, "team.html");
 
 const render = require("./lib/htmlRenderer");
 
-const questions = [{
+const mQuestion = [{
         name: "name",
         type: "input",
         message: "What is your manager's name?",
@@ -38,8 +43,23 @@ const questions = [{
     }
 ]
 
-inquirer.prompt(questions).then(function (answers) {
-    console.log("I'm working");
+inquirer.prompt(mQuestion).then(function managerChoice(answer) {
+
+    let teamMemeberChoice = answer.team;
+
+
+    console.log(engineer);
+    // console.log(answer.team);
+    // if (answer === engineerChoice)
+    // if(user chooses engineer) {
+    //     ask engineer questions
+    //     inquirer.prompt(eQuestion)
+    // }
+    // else if (user chooses intern) {
+    //     ask intern questions
+    //     inquirer.prompt(iQuestions)
+    // }
+
 });
 
 
