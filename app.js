@@ -77,7 +77,14 @@ const internChoice = "Intern";
 // const managerChoice = "Manager"
 
 
+
+// What is the difference between the prompt
+// prompt({
+
+// })
+
 inquirer.prompt(mQuestion).then(function managerChoice(answer) {
+    console.log(answer);
 
     let managerTeamMemeberChoice = answer.team;
 
