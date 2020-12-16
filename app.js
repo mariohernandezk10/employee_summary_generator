@@ -46,9 +46,16 @@ const mQuestion = [{
 inquirer.prompt(mQuestion).then(function managerChoice(answer) {
 
     let teamMemeberChoice = answer.team;
+    if (teamMemeberChoice === engineerChoice) {
+        console.log("run the engineer prompt questions");
+    } 
+    else if (teamMemeberChoice === internChoice) {
+        console.log("run the intern prompt questions");
+    }else {
+        console.log("render html. I HAVE NO IDEA HOW TO DO THIS PART");
+    }
 
-
-    console.log(engineer);
+    // console.log(engineer);
     // console.log(answer.team);
     // if (answer === engineerChoice)
     // if(user chooses engineer) {
