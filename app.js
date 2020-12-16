@@ -5,9 +5,7 @@ const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 
-const engineerChoice = mQuestion[4].choices[0];
-const internChoice = mQuestion[4].choices[1];
-const noChoice = mQuestion[4].choice[2];
+
 
 
 const OUTPUT_DIR = path.resolve(__dirname, "output");
@@ -43,15 +41,68 @@ const mQuestion = [{
     }
 ]
 
+const eQuestion = [{
+        name: "name",
+        type: "input",
+        message: "What is engineer's name?",
+    },
+    {
+        name: "id",
+        type: "number",
+        message: "What is engineer's id?",
+    },
+    {
+        name: "email",
+        type: "input",
+        message: "What is engineer's email?",
+    },
+    {
+        name: "github",
+        type: "input",
+        message: "What is engineer's github?"
+    },
+    {
+        name: "team",
+        type: "list",
+        message: "Which type of team member would you like to add?",
+        choices: ["Engineer", "Intern", "I don't want any more team members"],
+    }
+]
+
+// const engineerChoice = mQuestion[4].choices[0];
+// const internChoice = mQuestion[4].choices[1];
+
+const choiceEngineer = "Engineer";
+const internChoice = "Intern";
+// const managerChoice = "Manager"
+
+
 inquirer.prompt(mQuestion).then(function managerChoice(answer) {
 
-    let teamMemeberChoice = answer.team;
-    if (teamMemeberChoice === engineerChoice) {
+    let managerTeamMemeberChoice = answer.team;
+
+    if (managerTeamMemeberChoice === choiceEngineer) {
         console.log("run the engineer prompt questions");
-    } 
-    else if (teamMemeberChoice === internChoice) {
+        inquirer.prompt(eQuestion).then(function engineerChoice(answer) {
+
+
+            let engineerTeamMemberChoice = answer.team;
+
+
+            if (engineerTeamMemberChoice === internChoice) {
+                console.log("run the intern prompt");
+            } else if (engineerTeamMemberChoice === choiceEngineer) {
+                console.log("run the engineer prompt again");
+                // so here I need something that will replicate over and over
+                // for example I need to add something that will automatically pop the 
+                // engineer prompt again
+            } else {
+                console.log("render html. I HAVE NO IDEA HOW TO DO THIS PART");
+            }
+        });
+    } else if (teamMemeberChoice === internChoice) {
         console.log("run the intern prompt questions");
-    }else {
+    } else {
         console.log("render html. I HAVE NO IDEA HOW TO DO THIS PART");
     }
 
