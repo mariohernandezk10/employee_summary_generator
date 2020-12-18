@@ -116,7 +116,7 @@ inquirer.prompt(mQuestion).then(function managerChoice(answer) {
     const myTeam = [];
     myTeam.push(answer);
 
-    if (managerTeamMemeberChoice === choiceEngineer) {
+    if (managerTeamMemeberChoice === "Engineer") {
         console.log("run the engineer prompt questions");
         inquirer.prompt(eQuestion).then(function engineerChoice(answer) {
 
@@ -125,7 +125,7 @@ inquirer.prompt(mQuestion).then(function managerChoice(answer) {
             myTeam.push(answer);
 
 
-            if (engineerTeamMemberChoice === internChoice) {
+            if (engineerTeamMemberChoice === "Intern") {
                 console.log("run the intern prompt");
                 inquirer.prompt(iQuestion).then(function (response) {
                     console.log("render html");
@@ -140,11 +140,6 @@ inquirer.prompt(mQuestion).then(function managerChoice(answer) {
                 console.log("render html. I HAVE NO IDEA HOW TO DO THIS PART");
             }
         });
-    } else if (teamMemeberChoice === internChoice) {
-        console.log("run the intern prompt questions");
-    } else {
-        
-        console.log("render html. I HAVE NO IDEA HOW TO DO THIS PART");
     }
 
     // console.log(engineer);
@@ -158,7 +153,6 @@ inquirer.prompt(mQuestion).then(function managerChoice(answer) {
     //     ask intern questions
     //     inquirer.prompt(iQuestions)
     // }
-
 });
 
 
