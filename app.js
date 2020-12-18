@@ -1,5 +1,6 @@
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
+const Employee = require("./lib/Employee")
 const Intern = require("./lib/Intern");
 const inquirer = require("inquirer");
 const path = require("path");
@@ -65,8 +66,31 @@ const eQuestion = [{
         name: "team",
         type: "list",
         message: "Which type of team member would you like to add?",
-        choices: ["Engineer", "Intern", "I don't want any more team members"],
+        choices: ["Intern", "I don't want any more team members"],
     }
+]
+
+const iQuestion = [{
+    name: "name",
+    type: "input",
+    message: "What is your intern's name?",
+},
+{
+    name: "id",
+    type: "number",
+    message: "What is your intern's id?",
+},
+{
+    name: "school",
+    type: "input",
+    message: "What school does the intern attend?"
+},
+{
+    name: "team",
+    type: "list",
+    message: "Which type of team member would you like to add?",
+    choices: ["I don't want any more team members"],
+}
 ]
 
 // const engineerChoice = mQuestion[4].choices[0];
@@ -88,28 +112,38 @@ inquirer.prompt(mQuestion).then(function managerChoice(answer) {
 
     let managerTeamMemeberChoice = answer.team;
 
+
+    const myTeam = [];
+    myTeam.push(answer);
+
     if (managerTeamMemeberChoice === choiceEngineer) {
         console.log("run the engineer prompt questions");
         inquirer.prompt(eQuestion).then(function engineerChoice(answer) {
 
 
             let engineerTeamMemberChoice = answer.team;
+            myTeam.push(answer);
 
 
             if (engineerTeamMemberChoice === internChoice) {
                 console.log("run the intern prompt");
-            } else if (engineerTeamMemberChoice === choiceEngineer) {
-                console.log("run the engineer prompt again");
-                // so here I need something that will replicate over and over
-                // for example I need to add something that will automatically pop the 
-                // engineer prompt again
-            } else {
+                inquirer.prompt(iQuestion).then(function (response) {
+                    console.log("render html");
+
+                    myTeam.push(response);
+
+                    console.log(myTeam)
+                    // renderTeam(myTeam);
+
+                })
+            }else {
                 console.log("render html. I HAVE NO IDEA HOW TO DO THIS PART");
             }
         });
     } else if (teamMemeberChoice === internChoice) {
         console.log("run the intern prompt questions");
     } else {
+        
         console.log("render html. I HAVE NO IDEA HOW TO DO THIS PART");
     }
 
@@ -126,6 +160,19 @@ inquirer.prompt(mQuestion).then(function managerChoice(answer) {
     // }
 
 });
+
+
+// myTeam is the array that contains all the team members
+// make sure you call renderTeam() 
+
+
+// function renderTeam(myTeam) {
+//     fs.writeFile(outputPath, render(myTeam), "utf8", (err) => {
+//         if (err) throw err;
+//         console.log('The file has been saved!');
+//       });
+// }
+
 
 
 // Write code to use inquirer to gather information about the development team members,
