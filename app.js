@@ -38,7 +38,7 @@ const mQuestion = [{
         name: "team",
         type: "list",
         message: "Which type of team member would you like to add?",
-        choices: ["Engineer", "Intern", "I don't want any more team members"],
+        choices: ["Engineer", "I don't want any more team members"],
     }
 ]
 
@@ -108,7 +108,11 @@ const internChoice = "Intern";
 // })
 
 inquirer.prompt(mQuestion).then(function managerChoice(answer) {
-    console.log(answer);
+    // console.log(answer);
+    // console.log(answer.name);
+    // console.log(answer.id);
+    // console.log(answer.email);
+    // console.log(answer.office);
 
     let managerTeamMemeberChoice = answer.team;
 
@@ -117,7 +121,7 @@ inquirer.prompt(mQuestion).then(function managerChoice(answer) {
     myTeam.push(answer);
 
     if (managerTeamMemeberChoice === "Engineer") {
-        console.log("run the engineer prompt questions");
+        // console.log("run the engineer prompt questions");
         inquirer.prompt(eQuestion).then(function engineerChoice(answer) {
 
 
@@ -126,7 +130,7 @@ inquirer.prompt(mQuestion).then(function managerChoice(answer) {
 
 
             if (engineerTeamMemberChoice === "Intern") {
-                console.log("run the intern prompt");
+                // console.log("run the intern prompt");
                 inquirer.prompt(iQuestion).then(function (response) {
                     console.log("render html");
 
@@ -140,6 +144,9 @@ inquirer.prompt(mQuestion).then(function managerChoice(answer) {
                 console.log("render html. I HAVE NO IDEA HOW TO DO THIS PART");
             }
         });
+    } else {
+        console.log("RENDER HTML");
+        renderTeam(myTeam);
     }
 
     // console.log(engineer);
@@ -160,12 +167,12 @@ inquirer.prompt(mQuestion).then(function managerChoice(answer) {
 // make sure you call renderTeam() 
 
 
-// function renderTeam(myTeam) {
-//     fs.writeFile(outputPath, render(myTeam), "utf8", (err) => {
-//         if (err) throw err;
-//         console.log('The file has been saved!');
-//       });
-// }
+function renderTeam() {
+    fs.writeFile(outputPath, render(), "utf8", (err) => {
+        if (err) throw err;
+        console.log('The file has been saved!');
+      });
+}
 
 
 
