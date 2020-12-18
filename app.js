@@ -136,7 +136,7 @@ inquirer.prompt(mQuestion).then(function managerChoice(answer) {
 
                     myTeam.push(response);
 
-                    console.log(myTeam)
+                    // console.log(myTeam)
                     // renderTeam(myTeam);
 
                 })
@@ -146,7 +146,16 @@ inquirer.prompt(mQuestion).then(function managerChoice(answer) {
         });
     } else {
         console.log("RENDER HTML");
-        renderTeam(myTeam);
+
+
+        // function renderTeam(myTeam) {
+        //     fs.writeFile(outputPath, render, "utf8", (err) => {
+        //         if (err) throw err;
+        //         console.log('The file has been saved!');
+        //       });
+        // }
+        // console.log(myTeam[0].name);
+        // renderTeam(myTeam[0].name);
     }
 
     // console.log(engineer);
@@ -167,12 +176,7 @@ inquirer.prompt(mQuestion).then(function managerChoice(answer) {
 // make sure you call renderTeam() 
 
 
-function renderTeam() {
-    fs.writeFile(outputPath, render(), "utf8", (err) => {
-        if (err) throw err;
-        console.log('The file has been saved!');
-      });
-}
+
 
 
 
