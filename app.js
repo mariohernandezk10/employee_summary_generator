@@ -6,6 +6,12 @@ const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 
+const myTeam = []
+
+// somehow we have to grab the Manager, Engineer, Employee, Intern classes and use them in here
+// maybe by using new _______
+// So the Employee has to be passed first and then the Engineer/Manager/Intern then the object is created
+// then the object is saved or rendered
 
 
 
@@ -38,7 +44,7 @@ const mQuestion = [{
         name: "team",
         type: "list",
         message: "Which type of team member would you like to add?",
-        choices: ["Engineer", "I don't want any more team members"],
+        choices: ["Engineer", "Intern", "I don't want any more team members"],
     }
 ]
 
@@ -66,110 +72,156 @@ const eQuestion = [{
         name: "team",
         type: "list",
         message: "Which type of team member would you like to add?",
-        choices: ["Intern", "I don't want any more team members"],
+        choices: ["Intern", "Engineer", "I don't want any more team members"],
     }
 ]
 
 const iQuestion = [{
-    name: "name",
-    type: "input",
-    message: "What is your intern's name?",
-},
-{
-    name: "id",
-    type: "number",
-    message: "What is your intern's id?",
-},
-{
-    name: "school",
-    type: "input",
-    message: "What school does the intern attend?"
-},
-{
-    name: "team",
-    type: "list",
-    message: "Which type of team member would you like to add?",
-    choices: ["I don't want any more team members"],
-}
+        name: "name",
+        type: "input",
+        message: "What is your intern's name?",
+    },
+    {
+        name: "id",
+        type: "number",
+        message: "What is your intern's id?",
+    },
+    {
+        name: "school",
+        type: "input",
+        message: "What school does the intern attend?"
+    },
+    {
+        name: "team",
+        type: "list",
+        message: "Which type of team member would you like to add?",
+        choices: ["Engineer", "Intern", "I don't want any more team members"],
+    }
 ]
 
-// const engineerChoice = mQuestion[4].choices[0];
-// const internChoice = mQuestion[4].choices[1];
-
-const choiceEngineer = "Engineer";
-const internChoice = "Intern";
-// const managerChoice = "Manager"
+managerQuestions();
 
 
+function managerQuestions() {
+    inquirer.prompt(mQuestion).then(function managerChoice(answer) {
+        const manager = new Manager(answer.name, answer.id, answer.email, answer.office);
+        myTeam.push(manager);
 
-// What is the difference between the prompt
-// prompt({
+        if (answer.team === "Engineer") {
+            engineerQuestions();
+        } else if (answer.team === "Intern") {
+            internQuestions();
+        } else {
+            console.log("RENDER");
+            console.log(myTeam);
+        }
+    })
+}
 
-// })
+function engineerQuestions() {
+    inquirer.prompt(eQuestion).then(function engineerChoice(answer) {
+        const engineer = new Engineer(answer.name, answer.id, answer.email, answer.github);
+        myTeam.push(engineer);
 
-inquirer.prompt(mQuestion).then(function managerChoice(answer) {
-    // console.log(answer);
-    // console.log(answer.name);
-    // console.log(answer.id);
-    // console.log(answer.email);
-    // console.log(answer.office);
+        if (answer.team === "Engineer") {
+            engineerQuestions();
+        } else if (answer.team === "Intern") {
+            internQuestions();
+        } else {
+            console.log("RENDER");
+            console.log(myTeam);
+        }
+    })
+}
 
-    let managerTeamMemeberChoice = answer.team;
+function internQuestions() {
+    inquirer.prompt(iQuestion).then(function interChoice(answer) {
+        const intern = new Intern(answer.name, answer.id, answer.school);
+        myTeam.push(intern);
 
-
-    const myTeam = [];
-    myTeam.push(answer);
-
-    if (managerTeamMemeberChoice === "Engineer") {
-        // console.log("run the engineer prompt questions");
-        inquirer.prompt(eQuestion).then(function engineerChoice(answer) {
-
-
-            let engineerTeamMemberChoice = answer.team;
-            myTeam.push(answer);
-
-
-            if (engineerTeamMemberChoice === "Intern") {
-                // console.log("run the intern prompt");
-                inquirer.prompt(iQuestion).then(function (response) {
-                    console.log("render html");
-
-                    myTeam.push(response);
-
-                    // console.log(myTeam)
-                    // renderTeam(myTeam);
-
-                })
-            }else {
-                console.log("render html. I HAVE NO IDEA HOW TO DO THIS PART");
-            }
-        });
-    } else {
-        console.log("RENDER HTML");
+        if (answer.team === "Engineer") {
+            engineerQuestions();
+        } else if (answer.team === "Intern") {
+            internQuestions();
+        } else {
+            console.log("RENDER");
+            console.log(myTeam);
+        }
+    })
+}
 
 
-        // function renderTeam(myTeam) {
-        //     fs.writeFile(outputPath, render, "utf8", (err) => {
-        //         if (err) throw err;
-        //         console.log('The file has been saved!');
-        //       });
-        // }
-        // console.log(myTeam[0].name);
-        // renderTeam(myTeam[0].name);
-    }
 
-    // console.log(engineer);
-    // console.log(answer.team);
-    // if (answer === engineerChoice)
-    // if(user chooses engineer) {
-    //     ask engineer questions
-    //     inquirer.prompt(eQuestion)
-    // }
-    // else if (user chooses intern) {
-    //     ask intern questions
-    //     inquirer.prompt(iQuestions)
-    // }
-});
+
+
+// function renderTeam(myTeam) {
+//     fs.writeFile(outputPath, render, "utf8", (err) => {
+//         if (err) throw err;
+//         console.log('The file has been saved!');
+//     });
+// }
+
+
+
+
+
+// inquirer.prompt(mQuestion).then(function managerChoice(answer) {
+
+//     let managerTeamMemeberChoice = answer.team;
+
+
+//     // const myTeam = [];
+//     myTeam.push(answer);
+
+
+//     if (managerTeamMemeberChoice === "Engineer") {
+//         // console.log("run the engineer prompt questions");
+
+//         inquirer.prompt(eQuestion).then(function engineerChoice(answer) {
+
+
+//             let engineerTeamMemberChoice = answer.team;
+//             myTeam.push(answer);
+
+
+
+//             if (engineerTeamMemberChoice === "Intern") {
+//                 // console.log("run the intern prompt");
+//                 inquirer.prompt(iQuestion).then(function (response) {
+//                     console.log("render html");
+
+//                     myTeam.push(response);
+
+//                     // console.log(myTeam)
+
+
+//                 })
+//             } else {
+//                 console.log("render html. I HAVE NO IDEA HOW TO DO THIS PART");
+//             }
+//         });
+//     } else {
+//         console.log("RENDER HTML");
+
+
+//         console.log(myTeam[0].name);
+//         renderTeam(myTeam[0].name);
+//     }
+
+// });
+
+// console.log(engineer);
+// console.log(answer.team);
+// if (answer === engineerChoice)
+// if(user chooses engineer) {
+//     ask engineer questions
+//     inquirer.prompt(eQuestion)
+// }
+// else if (user chooses intern) {
+//     ask intern questions
+//     inquirer.prompt(iQuestions)
+// }
+
 
 
 // myTeam is the array that contains all the team members
