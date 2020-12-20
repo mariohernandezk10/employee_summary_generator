@@ -6,7 +6,9 @@ const inquirer = require("inquirer");
 const path = require("path");
 const fs = require("fs");
 
-const myTeam = []
+const myTeam = [];
+
+
 
 // somehow we have to grab the Manager, Engineer, Employee, Intern classes and use them in here
 // maybe by using new _______
@@ -114,6 +116,7 @@ function managerQuestions() {
         } else {
             console.log("RENDER");
             console.log(myTeam);
+            renderTeam();
         }
     })
 }
@@ -130,6 +133,7 @@ function engineerQuestions() {
         } else {
             console.log("RENDER");
             console.log(myTeam);
+            renderTeam();
         }
     })
 }
@@ -146,90 +150,17 @@ function internQuestions() {
         } else {
             console.log("RENDER");
             console.log(myTeam);
+            renderTeam();
         }
     })
 }
 
-
-
-
-
-// function renderTeam(myTeam) {
-//     fs.writeFile(outputPath, render, "utf8", (err) => {
-//         if (err) throw err;
-//         console.log('The file has been saved!');
-//     });
-// }
-
-
-
-
-
-// inquirer.prompt(mQuestion).then(function managerChoice(answer) {
-
-//     let managerTeamMemeberChoice = answer.team;
-
-
-//     // const myTeam = [];
-//     myTeam.push(answer);
-
-
-//     if (managerTeamMemeberChoice === "Engineer") {
-//         // console.log("run the engineer prompt questions");
-
-//         inquirer.prompt(eQuestion).then(function engineerChoice(answer) {
-
-
-//             let engineerTeamMemberChoice = answer.team;
-//             myTeam.push(answer);
-
-
-
-//             if (engineerTeamMemberChoice === "Intern") {
-//                 // console.log("run the intern prompt");
-//                 inquirer.prompt(iQuestion).then(function (response) {
-//                     console.log("render html");
-
-//                     myTeam.push(response);
-
-//                     // console.log(myTeam)
-
-
-//                 })
-//             } else {
-//                 console.log("render html. I HAVE NO IDEA HOW TO DO THIS PART");
-//             }
-//         });
-//     } else {
-//         console.log("RENDER HTML");
-
-
-//         console.log(myTeam[0].name);
-//         renderTeam(myTeam[0].name);
-//     }
-
-// });
-
-// console.log(engineer);
-// console.log(answer.team);
-// if (answer === engineerChoice)
-// if(user chooses engineer) {
-//     ask engineer questions
-//     inquirer.prompt(eQuestion)
-// }
-// else if (user chooses intern) {
-//     ask intern questions
-//     inquirer.prompt(iQuestions)
-// }
-
-
-
-// myTeam is the array that contains all the team members
-// make sure you call renderTeam() 
-
-
-
-
+function renderTeam() {
+    fs.writeFile(outputPath, render(myTeam), "utf8", (err) => {
+        if (err) throw err;
+        console.log('The file has been saved!');
+    });
+}
 
 
 // Write code to use inquirer to gather information about the development team members,
